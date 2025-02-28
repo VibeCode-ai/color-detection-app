@@ -135,15 +135,16 @@ def extract_dominant_colors(image_path, num_colors=5):
     Returns:
         List of dominant colors with RGB, HEX, HSL values and percentages
     """
-    # Load image
+    # Handle both file paths and numpy arrays
     if isinstance(image_path, str):
+        # Load image
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     else:
-        # Assume image is already loaded
+        # Assume it's already a numpy array
         image = image_path
         if len(image.shape) == 3 and image.shape[2] == 3:
-            # Check if in BGR format (cv2 default) and convert if needed
+            # Make sure it's RGB
             if isinstance(image_path, np.ndarray):
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -171,7 +172,7 @@ def extract_dominant_colors(image_path, num_colors=5):
     result = []
     for i in range(len(colors)):
         rgb = colors[i].tolist()
-        hex_val = rgb_to_hex(rgb)
+        hex_val = rgb_to_hex(rgb[0], rgb[1], rgb[2])
         hsl = rgb_to_hsl(rgb)
 
         result.append(

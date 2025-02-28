@@ -1,4 +1,8 @@
-const API_BASE_URL = '/api';
+// Determine API base URL based on environment
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
+  (process.env.NODE_ENV === 'production'
+    ? 'https://your-backend-api-url.com/api' // Replace with your production backend URL
+    : '/api');
 
 export const uploadImage = async (imageFile) => {
   const formData = new FormData();

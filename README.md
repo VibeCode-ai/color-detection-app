@@ -1,6 +1,6 @@
 # Color Detection App
 
-A web application that allows users to upload images, detect colors, and get color information.
+AI-powered application for color detection and analysis.
 
 ## Features
 
@@ -81,6 +81,48 @@ python app.py
 ```
 
 The API will be available at http://localhost:5000
+
+## Docker Setup
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Running the Application
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/color-detection-app.git
+   cd color-detection-app
+   ```
+
+2. Start the Docker containers:
+   ```bash
+   docker-compose up
+   ```
+
+3. Access the application:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000/api
+
+### Development with Docker
+
+For development mode, use:
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+```
+
+### Production Deployment
+
+For production deployment, build optimized images:
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+## Without Docker
+
+Follow the setup instructions in the frontend and backend directories.
 
 ## Docker Deployment
 

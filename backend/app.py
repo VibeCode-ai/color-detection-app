@@ -7,8 +7,7 @@ from ml.color_classifier import classify_color
 from ml.complementary_colors import get_complementary_colors
 from utils.image_processor import process_image, allowed_file
 from utils.color_distance import calculate_color_distance
-
-from utils.color_utils import rgb_to_hex, rgb_to_hsl, hex_to_rgb
+from backend.utils.color_utils import rgb_to_hex, rgb_to_hsl, hex_to_rgb
 
 app = Flask(__name__)
 CORS(app)

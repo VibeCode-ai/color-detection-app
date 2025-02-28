@@ -1,4 +1,5 @@
-from utils.color_utils import hex_to_rgb, rgb_to_hex, rgb_to_hsl
+from backend.utils.color_utils import hex_to_rgb, rgb_to_hex, rgb_to_hsl
+from ml.color_classifier import ColorClassifier
 
 
 def get_complementary_colors(hex_color, scheme_type="complementary"):
@@ -71,3 +72,33 @@ def get_complementary_colors(hex_color, scheme_type="complementary"):
         comp_b = 255 - b
 
         return [rgb_to_hex((comp_r, comp_g, comp_b))]
+
+
+def get_complementary_color_scheme(hex_color):
+    """
+    Get complementary color schemes for a given hex color
+
+    Args:
+        hex_color (str): Hex color code
+
+    Returns:
+        dict: Different color schemes based on the input color
+    """
+    # Convert hex to RGB
+    r, g, b = hex_to_rgb(hex_color)
+
+    # Use the classifier to get color schemes
+    classifier = ColorClassifier()
+    rgb_schemes = classifier.predict_complementary_colors([r, g, b])
+
+    # Convert all RGB values back to hex for API response
+    hex_schemes = {
+        "complementary": rgb_to_hex(*rgb_schemes["complementary"]),
+        "analogous": [rgb_to_hex(*color) for color in rgb_schemes["analogous"]],
+        "triadic": [rgb_to_hex(*color) for color in rgb_schemes["triadic"]],
+    }
+
+    # Add original color to the result
+    hex_schemes["original"] = hex_color
+
+    return hex_schemes
