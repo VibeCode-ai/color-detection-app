@@ -5,6 +5,8 @@ import io
 import base64
 import requests
 from urllib.parse import urlparse
+import cv2
+from utils.color_utils import rgb_to_hex, rgb_to_hsl
 
 
 class ColorExtractor:
@@ -120,6 +122,68 @@ class ColorExtractor:
             "palette_type": "dominant",
             "total_colors": len(colors),
         }
+
+
+def extract_dominant_colors(image_path, num_colors=5):
+    """
+    Extract dominant colors from an image using K-means clustering.
+
+    Args:
+        image_path: Path to the image file or loaded image array
+        num_colors: Number of dominant colors to extract
+
+    Returns:
+        List of dominant colors with RGB, HEX, HSL values and percentages
+    """
+    # Load image
+    if isinstance(image_path, str):
+        image = cv2.imread(image_path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    else:
+        # Assume image is already loaded
+        image = image_path
+        if len(image.shape) == 3 and image.shape[2] == 3:
+            # Check if in BGR format (cv2 default) and convert if needed
+            if isinstance(image_path, np.ndarray):
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Reshape the image to be a list of pixels
+    pixels = image.reshape(-1, 3)
+
+    # Perform k-means clustering
+    kmeans = KMeans(n_clusters=num_colors, random_state=42)
+    kmeans.fit(pixels)
+
+    # Get the colors from centroids
+    colors = kmeans.cluster_centers_.astype(int)
+
+    # Calculate percentage of each color
+    labels = kmeans.labels_
+    count = np.bincount(labels)
+    percentages = count / len(labels) * 100
+
+    # Sort colors by percentage
+    indices = np.argsort(percentages)[::-1]
+    colors = colors[indices]
+    percentages = percentages[indices]
+
+    # Convert to RGB, HEX and calculate HSL values
+    result = []
+    for i in range(len(colors)):
+        rgb = colors[i].tolist()
+        hex_val = rgb_to_hex(rgb)
+        hsl = rgb_to_hsl(rgb)
+
+        result.append(
+            {
+                "rgb": {"r": rgb[0], "g": rgb[1], "b": rgb[2]},
+                "hex": hex_val,
+                "hsl": hsl,
+                "percentage": percentages[i],
+            }
+        )
+
+    return result
 
 
 # Example usage
