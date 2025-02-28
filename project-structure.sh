@@ -1,8 +1,7 @@
 color-detection-app/
 ├── .github/                  # GitHub configuration
 │   └── workflows/            # GitHub Actions workflows
-│       ├── deploy.yml        # Deployment workflow
-│       └── deploy-docker.yml # Docker deployment workflow
+│       └── deploy.yml        # Deployment workflow
 ├── frontend/                 # Next.js frontend
 │   ├── pages/
 │   │   ├── index.js          # Main application page
@@ -20,7 +19,6 @@ color-detection-app/
 │   │   ├── colorUtils.js     # Color utility functions
 │   │   └── apiClient.js      # API client for backend
 │   ├── public/               # Static assets
-│   ├── .dockerignore         # Docker ignore for frontend
 │   ├── package.json          # Frontend dependencies
 │   └── next.config.js        # Next.js configuration
 ├── backend/                  # Flask backend
@@ -32,12 +30,7 @@ color-detection-app/
 │   ├── utils/
 │   │   ├── image_processor.py # Image processing utilities
 │   │   └── color_distance.py  # Color distance calculations
-│   ├── .dockerignore         # Docker ignore for backend
-│   ├── requirements.txt      # Backend dependencies
-│   └── Dockerfile            # For containerization
-├── docker-compose.yml        # Base Docker Compose configuration
-├── docker-compose.dev.yml    # Development environment overrides
-├── docker-compose.prod.yml   # Production environment overrides
+│   └── requirements.txt      # Backend dependencies
 ├── setup.sh                  # Project setup script
 ├── .gitignore                # Git ignore file
 └── README.md                 # Project documentation

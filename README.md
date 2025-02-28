@@ -56,8 +56,7 @@ color-detection-app/
 │   ├── utils/
 │   │   ├── image_processor.py # Image processing utilities
 │   │   └── color_distance.py  # Color distance calculations
-│   ├── requirements.txt      # Backend dependencies
-│   └── Dockerfile            # For containerization
+│   └── requirements.txt      # Backend dependencies
 ```
 
 ## Setup
@@ -81,56 +80,6 @@ python app.py
 ```
 
 The API will be available at http://localhost:5000
-
-## Docker Setup
-
-### Prerequisites
-- Docker
-- Docker Compose
-
-### Running the Application
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/color-detection-app.git
-   cd color-detection-app
-   ```
-
-2. Start the Docker containers:
-   ```bash
-   docker-compose up
-   ```
-
-3. Access the application:
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000/api
-
-### Development with Docker
-
-For development mode, use:
-```bash
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
-```
-
-### Production Deployment
-
-For production deployment, build optimized images:
-```bash
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-```
-
-## Without Docker
-
-Follow the setup instructions in the frontend and backend directories.
-
-## Docker Deployment
-
-```bash
-cd backend
-docker build -t color-detection-app-backend .
-docker run -p 5000:5000 color-detection-app-backend
-```
 
 ## License
 
