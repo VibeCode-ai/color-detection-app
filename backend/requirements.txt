@@ -15,7 +15,7 @@ requests
 urllib3
 
 # Production server
-gunicorn
+gunicorn==23.0.0
 
 # Testing & development
 pytest
