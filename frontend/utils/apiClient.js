@@ -1,8 +1,9 @@
-// Determine API base URL based on environment
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
-  (process.env.NODE_ENV === 'production'
-    ? 'https://your-backend-api-url.com/api' // Replace with your production backend URL
-    : '/api');
+// API client for backend communication
+
+// Determine the API base URL based on environment
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://your-backend-url.com/api' // Replace with your deployed backend URL
+  : 'http://localhost:5000/api';
 
 export const uploadImage = async (imageFile) => {
   const formData = new FormData();
@@ -57,3 +58,26 @@ export const calculateColorDistance = async (color1, color2) => {
     throw error;
   }
 };
+
+export const analyzeImage = async (imageData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/analyze`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image: imageData }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Error analyzing image');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('API error:', error);
+    throw error;
+  }
+};
+
+// Add other API methods as needed

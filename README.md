@@ -81,6 +81,20 @@ python app.py
 
 The API will be available at http://localhost:5000
 
+## Deployment Notes
+
+This project is configured for a split deployment:
+
+- Frontend: Deployed to GitHub Pages
+- Backend: Requires separate deployment to a server supporting Python/Flask
+
+### Backend Deployment Options:
+- Deploy to a cloud service like Heroku, Google Cloud Platform, or AWS
+- Update the API endpoint in `frontend/utils/apiClient.js` after deployment
+
+### Local Development
+When running locally, the frontend communicates with the local backend server.
+
 ## License
 
 MIT
